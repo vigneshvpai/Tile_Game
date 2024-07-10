@@ -7,6 +7,8 @@ class MatrixAndColors:
         self.no_of_colors = no_of_colors
         self.matrix = np.zeros((matrix_size, matrix_size), dtype=int)
         self.colors = np.zeros(no_of_colors, dtype=int)
+        self.origin = (0, 0)
+        self.filled_element_indices = np.array([self.origin])
 
     def set_colors(self):
         # Create a numpy list of numbers from 1 to no_of_colors
@@ -25,12 +27,65 @@ class MatrixAndColors:
         print("Colors:")
         print(self.colors)
 
+    def display_with_indices(self):
+        # Display the matrix elements along with their indices
+        for i in range(self.matrix_size):
+            for j in range(self.matrix_size):
+                print(f"{self.matrix[i, j]}({i},{j})", end=" ")
+            print()  # Newline after each row
 
-# Example usage:
-matrix_size = 4
-no_of_colors = 3
+    def flood_fill(self, index, new_value):
+        start_row, start_col = index
+        target_value = self.matrix[start_row, start_col]
+        if target_value == new_value:
+            return  # No need to fill if the target value is the same as the new value
 
-matrix_and_colors = MatrixAndColors(matrix_size, no_of_colors)
-matrix_and_colors.set_colors()
-matrix_and_colors.set_matrix()
-matrix_and_colors.display()
+        self._flood_fill_helper(start_row, start_col, target_value, new_value)
+        # Update the stack after flood fill
+
+    def _flood_fill_helper(self, row, col, target_value, new_value):
+        if (
+            row < 0
+            or row >= self.matrix_size
+            or col < 0
+            or col >= self.matrix_size
+            or self.matrix[row, col] != target_value
+        ):
+            return
+
+        self.matrix[row, col] = new_value
+
+        # Recursively apply flood fill to 4-connected neighbors
+        self._flood_fill_helper(row + 1, col, target_value, new_value)
+        self._flood_fill_helper(row - 1, col, target_value, new_value)
+        self._flood_fill_helper(row, col + 1, target_value, new_value)
+        self._flood_fill_helper(row, col - 1, target_value, new_value)
+
+
+# # Example usage:
+# matrix_size = 4
+# no_of_colors = 3
+
+# matrix_and_colors = MatrixAndColors(matrix_size, no_of_colors)
+# matrix_and_colors.set_colors()
+# matrix_and_colors.set_matrix()
+# matrix_and_colors.display()
+
+
+# matrix_and_colors.flood_fill((0, 0), 3)
+# matrix_and_colors.display()
+
+# matrix_and_colors.flood_fill((0, 0), 2)
+# matrix_and_colors.display()
+
+# matrix_and_colors.flood_fill((0, 0), 1)
+# matrix_and_colors.display()
+
+# matrix_and_colors.flood_fill((0, 0), 3)
+# matrix_and_colors.display()
+
+# matrix_and_colors.flood_fill((0, 0), 2)
+# matrix_and_colors.display()
+
+# matrix_and_colors.flood_fill((0, 0), 1)
+# matrix_and_colors.display()
