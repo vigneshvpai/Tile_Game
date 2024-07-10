@@ -43,7 +43,7 @@ class MatrixAndColors:
         start_row, start_col = index
         target_value = self.matrix[start_row, start_col]
         if target_value == new_value:
-            return  # No need to fill if the target value is the same as the new value
+            return 0  # No need to fill if the target value is the same as the new value
 
         matrix = self.matrix if modify_matrix else self.matrix.copy()
 
@@ -57,7 +57,7 @@ class MatrixAndColors:
             or row >= self.matrix_size
             or col < 0
             or col >= self.matrix_size
-            or self.matrix[row, col] != target_value
+            or matrix[row, col] != target_value
         ):
             return
 
