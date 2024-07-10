@@ -23,6 +23,7 @@ class Computer:
                 new_tiles_count = self.game.flood_fill(
                     (0, 0), color, modify_matrix=False
                 )
+                print(f"Reward for {color} is {new_tiles_count}\n")
 
                 if new_tiles_count > highest_reward:
                     color_with_highest_reward = color

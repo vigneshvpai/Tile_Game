@@ -52,6 +52,7 @@ class MatrixAndColors:
         return self.new_tiles_count  # Return the count of new tiles
 
     def _flood_fill_helper(self, matrix, row, col, target_value, new_value):
+        self.new_tiles_count += 1
         if (
             row < 0
             or row >= self.matrix_size
@@ -62,7 +63,7 @@ class MatrixAndColors:
             return
 
         matrix[row, col] = new_value
-        self.new_tiles_count += 1  # Increment count for each new tile added
+        # Increment count for each new tile added
 
         # Recursively apply flood fill to 4-connected neighbors
         self._flood_fill_helper(matrix, row + 1, col, target_value, new_value)
