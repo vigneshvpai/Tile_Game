@@ -1,4 +1,7 @@
 import numpy as np
+import sys
+
+np.set_printoptions(threshold=sys.maxsize)
 
 
 class MatrixAndColors:
@@ -8,7 +11,7 @@ class MatrixAndColors:
         self.matrix = np.zeros((matrix_size, matrix_size), dtype=int)
         self.colors = np.zeros(no_of_colors, dtype=int)
         self.origin = (0, 0)
-        self.filled_element_indices = np.array([self.origin])
+        self.new_tiles_count = 0  # Initialize count for new tiles
 
     def set_colors(self):
         # Create a numpy list of numbers from 1 to no_of_colors
@@ -35,12 +38,16 @@ class MatrixAndColors:
             print()  # Newline after each row
 
     def flood_fill(self, index, new_value):
+        if new_value not in self.colors:
+            raise ValueError("new_value must be a valid color from self.colors")
         start_row, start_col = index
         target_value = self.matrix[start_row, start_col]
         if target_value == new_value:
             return  # No need to fill if the target value is the same as the new value
 
+        self.new_tiles_count = 0  # Reset new tiles count
         self._flood_fill_helper(start_row, start_col, target_value, new_value)
+        return self.new_tiles_count  # Return the count of new tiles
 
     def _flood_fill_helper(self, row, col, target_value, new_value):
         if (
@@ -53,6 +60,7 @@ class MatrixAndColors:
             return
 
         self.matrix[row, col] = new_value
+        self.new_tiles_count += 1  # Increment count for each new tile added
 
         # Recursively apply flood fill to 4-connected neighbors
         self._flood_fill_helper(row + 1, col, target_value, new_value)

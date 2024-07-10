@@ -10,5 +10,5 @@ matrix_and_colors.display()
 
 while True:
     next_color = int(input("Enter next color: "))
-    matrix_and_colors.flood_fill((0, 0), next_color)
+    print("New tiles: ", matrix_and_colors.flood_fill((0, 0), next_color))
     matrix_and_colors.display()
