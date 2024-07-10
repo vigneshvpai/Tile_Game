@@ -18,11 +18,9 @@ class Computer:
             print("Computer is thinking ...")
             time.sleep(1)
 
-            new_color_list = np.unique(self.game.matrix)
-
-            color_with_highest_reward = new_color_list[-1]
+            color_with_highest_reward = self.game.colors[-1]
             highest_reward = 0
-
+            new_color_list = np.unique(self.game.matrix)
             for color in new_color_list:
                 new_tiles_count = self.game.flood_fill(
                     (0, 0), color, modify_matrix=False
