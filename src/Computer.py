@@ -1,5 +1,6 @@
 import numpy as np
 import MatrixAndColors  # Assuming MatrixAndColors is defined in matrix_and_colors.py
+import copy
 
 
 class Computer:
@@ -9,8 +10,11 @@ class Computer:
     def play_game(self):
         self.game.set_colors()
         self.game.set_matrix()
-        print("Initial State:")
         self.game.display()
+
+        while self.game.new_tiles_count < self.game.matrix_size * self.game.matrix_size:
+            for color in self.game.colors:
+                new_tiles_count = self.game.flood_fill((0, 0), color)
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ class MatrixAndColors:
                 print(f"{self.matrix[i, j]}({i},{j})", end=" ")
             print()  # Newline after each row
 
-    def flood_fill(self, index, new_value):
+    def flood_fill(self, index, new_value, modify_matrix):
         if new_value not in self.colors:
             raise ValueError("new_value must be a valid color from self.colors")
         start_row, start_col = index
@@ -45,11 +45,13 @@ class MatrixAndColors:
         if target_value == new_value:
             return  # No need to fill if the target value is the same as the new value
 
+        matrix = self.matrix if modify_matrix else self.matrix.copy()
+
         self.new_tiles_count = 0  # Reset new tiles count
-        self._flood_fill_helper(start_row, start_col, target_value, new_value)
+        self._flood_fill_helper(matrix, start_row, start_col, target_value, new_value)
         return self.new_tiles_count  # Return the count of new tiles
 
-    def _flood_fill_helper(self, row, col, target_value, new_value):
+    def _flood_fill_helper(self, matrix, row, col, target_value, new_value):
         if (
             row < 0
             or row >= self.matrix_size
@@ -59,11 +61,11 @@ class MatrixAndColors:
         ):
             return
 
-        self.matrix[row, col] = new_value
+        matrix[row, col] = new_value
         self.new_tiles_count += 1  # Increment count for each new tile added
 
         # Recursively apply flood fill to 4-connected neighbors
-        self._flood_fill_helper(row + 1, col, target_value, new_value)
-        self._flood_fill_helper(row - 1, col, target_value, new_value)
-        self._flood_fill_helper(row, col + 1, target_value, new_value)
-        self._flood_fill_helper(row, col - 1, target_value, new_value)
+        self._flood_fill_helper(matrix, row + 1, col, target_value, new_value)
+        self._flood_fill_helper(matrix, row - 1, col, target_value, new_value)
+        self._flood_fill_helper(matrix, row, col + 1, target_value, new_value)
+        self._flood_fill_helper(matrix, row, col - 1, target_value, new_value)
