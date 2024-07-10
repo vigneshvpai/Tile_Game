@@ -26,11 +26,11 @@ class MatrixAndColors:
         print(self.colors)
 
 
-# # Example usage:
-# matrix_size = 3
-# no_of_colors = 4
+# Example usage:
+matrix_size = 6
+no_of_colors = 3
 
-# matrix_and_colors = MatrixAndColors(matrix_size, no_of_colors)
-# matrix_and_colors.set_colors()
-# matrix_and_colors.set_matrix()
-# matrix_and_colors.display()
+matrix_and_colors = MatrixAndColors(matrix_size, no_of_colors)
+matrix_and_colors.set_colors()
+matrix_and_colors.set_matrix()
+matrix_and_colors.display()
