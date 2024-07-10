@@ -27,7 +27,7 @@ class MatrixAndColors:
 
 
 # Example usage:
-matrix_size = 6
+matrix_size = 4
 no_of_colors = 3
 
 matrix_and_colors = MatrixAndColors(matrix_size, no_of_colors)
