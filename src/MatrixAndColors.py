@@ -41,7 +41,6 @@ class MatrixAndColors:
             return  # No need to fill if the target value is the same as the new value
 
         self._flood_fill_helper(start_row, start_col, target_value, new_value)
-        # Update the stack after flood fill
 
     def _flood_fill_helper(self, row, col, target_value, new_value):
         if (
@@ -60,32 +59,3 @@ class MatrixAndColors:
         self._flood_fill_helper(row - 1, col, target_value, new_value)
         self._flood_fill_helper(row, col + 1, target_value, new_value)
         self._flood_fill_helper(row, col - 1, target_value, new_value)
-
-
-# # Example usage:
-# matrix_size = 4
-# no_of_colors = 3
-
-# matrix_and_colors = MatrixAndColors(matrix_size, no_of_colors)
-# matrix_and_colors.set_colors()
-# matrix_and_colors.set_matrix()
-# matrix_and_colors.display()
-
-
-# matrix_and_colors.flood_fill((0, 0), 3)
-# matrix_and_colors.display()
-
-# matrix_and_colors.flood_fill((0, 0), 2)
-# matrix_and_colors.display()
-
-# matrix_and_colors.flood_fill((0, 0), 1)
-# matrix_and_colors.display()
-
-# matrix_and_colors.flood_fill((0, 0), 3)
-# matrix_and_colors.display()
-
-# matrix_and_colors.flood_fill((0, 0), 2)
-# matrix_and_colors.display()
-
-# matrix_and_colors.flood_fill((0, 0), 1)
-# matrix_and_colors.display()

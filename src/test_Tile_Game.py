@@ -38,6 +38,19 @@ class TestMatrixAndColors(unittest.TestCase):
         matrix_and_colors.set_matrix()
         matrix_and_colors.display()  # This is a visual check; you should see the matrix and colors printed
 
+    def test_flood_fill(self):
+        n = 4
+        m = 3
+        matrix_and_colors = MatrixAndColors.MatrixAndColors(n, m)
+        matrix_and_colors.matrix = np.array(
+            [[1, 1, 2, 1], [1, 1, 1, 1], [2, 2, 3, 1], [2, 1, 3, 1]]
+        )
+        matrix_and_colors.flood_fill((0, 0), 9)
+        expected_matrix = np.array(
+            [[9, 9, 2, 9], [9, 9, 9, 9], [2, 2, 3, 9], [2, 1, 3, 9]]
+        )
+        np.testing.assert_array_equal(matrix_and_colors.matrix, expected_matrix)
+
 
 if __name__ == "__main__":
     unittest.main()
