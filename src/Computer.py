@@ -12,18 +12,18 @@ class Computer:
         self.game.set_matrix()
         self.game.display()
 
-        while self.game.new_tiles_count < self.game.matrix_size * self.game.matrix_size:
+        while self.game.new_tiles_count < np.square(self.game.matrix_size):
 
-            print("Computer is thinking ...\n")
+            print("Computer is thinking ...")
             time.sleep(3)
 
             color_with_highest_reward = self.game.colors[-1]
             highest_reward = 0
-            for color in self.game.colors:
+            for color in np.unique(self.game.matrix):
                 new_tiles_count = self.game.flood_fill(
                     (0, 0), color, modify_matrix=False
                 )
-                print(f"Reward for {color} is {new_tiles_count}\n")
+                print(f"Reward for {color} is {new_tiles_count}")
 
                 if new_tiles_count > highest_reward:
                     color_with_highest_reward = color
@@ -36,5 +36,5 @@ class Computer:
 
 
 if __name__ == "__main__":
-    computer = Computer(matrix_size=5, no_of_colors=3)
+    computer = Computer(matrix_size=4, no_of_colors=3)
     computer.play_game()

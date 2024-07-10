@@ -1,4 +1,5 @@
 import MatrixAndColors
+import numpy
 
 matrix_size = int(input("Enter side length of square matrix: "))
 no_of_colors = int(input("Enter number of colors: "))
@@ -8,7 +9,7 @@ matrix_and_colors.set_colors()
 matrix_and_colors.set_matrix()
 matrix_and_colors.display()
 
-while True:
+while matrix_and_colors.new_tiles_count < np.square(matrix_and_colors.matrix_size):
     next_color = int(input("Enter next color: "))
     print(
         "New tiles: ",

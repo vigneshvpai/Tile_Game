@@ -27,8 +27,8 @@ class MatrixAndColors:
         # Display the matrix and colors
         print("Matrix:")
         print(self.matrix)
-        print("Colors:")
-        print(self.colors)
+        # print("Colors:")
+        # print(self.colors)
 
     def display_with_indices(self):
         # Display the matrix elements along with their indices
@@ -37,22 +37,22 @@ class MatrixAndColors:
                 print(f"{self.matrix[i, j]}({i},{j})", end=" ")
             print()  # Newline after each row
 
-    def flood_fill(self, index, new_value, modify_matrix):
-        if new_value not in self.colors:
+    def flood_fill(self, index, color, modify_matrix):
+        if color not in self.colors:
             raise ValueError("new_value must be a valid color from self.colors")
         start_row, start_col = index
         target_value = self.matrix[start_row, start_col]
-        if target_value == new_value:
+        if target_value == color:
             return 0  # No need to fill if the target value is the same as the new value
 
         matrix = self.matrix if modify_matrix else self.matrix.copy()
 
         self.new_tiles_count = 0  # Reset new tiles count
-        self._flood_fill_helper(matrix, start_row, start_col, target_value, new_value)
+        self._flood_fill_helper(matrix, start_row, start_col, target_value, color)
         return self.new_tiles_count  # Return the count of new tiles
 
-    def _flood_fill_helper(self, matrix, row, col, target_value, new_value):
-        self.new_tiles_count += 1
+    def _flood_fill_helper(self, matrix, row, col, target_value, color):
+
         if (
             row < 0
             or row >= self.matrix_size
@@ -62,11 +62,12 @@ class MatrixAndColors:
         ):
             return
 
-        matrix[row, col] = new_value
-        # Increment count for each new tile added
+        if matrix[row, col] != color:
+            self.new_tiles_count += 1
+            matrix[row, col] = color
 
         # Recursively apply flood fill to 4-connected neighbors
-        self._flood_fill_helper(matrix, row + 1, col, target_value, new_value)
-        self._flood_fill_helper(matrix, row - 1, col, target_value, new_value)
-        self._flood_fill_helper(matrix, row, col + 1, target_value, new_value)
-        self._flood_fill_helper(matrix, row, col - 1, target_value, new_value)
+        self._flood_fill_helper(matrix, row + 1, col, target_value, color)
+        self._flood_fill_helper(matrix, row - 1, col, target_value, color)
+        self._flood_fill_helper(matrix, row, col + 1, target_value, color)
+        self._flood_fill_helper(matrix, row, col - 1, target_value, color)
